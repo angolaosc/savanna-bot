@@ -1,6 +1,9 @@
 # savanna-bot
 
 A discord bot to find github's good first issue on different repositories.
+## Get it
+
+You can add the bot to your server by clicking on [<img alt="discord" width="100px" src="assets/discord.png"/>](https://discord.com/oauth2/authorize?client_id=1138189651593674845&permissions=2147551232&scope=bot)
 
 ## Configuration
 
