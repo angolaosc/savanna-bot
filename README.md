@@ -4,14 +4,16 @@ A discord bot to find github's good first issue on different repositories.
 
 ## Configuration
 
-- You will need your discord channel's webhook link. See how to create [here](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) 
+- You will need your discord bot token. See how to get yours [here](https://discordpy.readthedocs.io/en/stable/discord.html)
+- A discord channels's id to send the messages. See how to get yours [here](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-)
 - And your github developer token. See how to get yours [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
 Now you need to change the `.env-example` to `.env`, with the following content
 
 ```env
   GITHUB_TOKEN=<your github developer access token>
-  DISCORD_WEBHOOK_URL=<your discord channel's webhook link>
+  DISCORD_CHANNEL_ID=<your discord channel's id>
+  BOT_TOKEN=<your discord bot token>
 ```
 
 ## Run Locally
@@ -48,7 +50,7 @@ install the dependencies
 now you are ready to go, run
 
 ```bash
-  python3 src/main.py
+  python3 src/bot.py
 ```
 
 ## Contributing
