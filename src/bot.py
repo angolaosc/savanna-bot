@@ -2,7 +2,7 @@ import logging
 import discord
 from pathlib import Path
 from decouple import config
-from discord.ext import commands, tasks   
+from discord.ext import commands
 from github import GithubSearcher
 
 root = Path(__name__).parent
