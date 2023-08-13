@@ -39,14 +39,13 @@ async def search_send(ctx, *args):
     logging.info("Received command from discord")
     
     # automatically parse all the arguments
-    if ctx.channel.id == CHANNEL_ID:
-        params = ' '.join(args)
-        results = await searcher.search(params)
-        if results:
-            for result in results:
-                await ctx.send(result.html_url)
-        else:
-            await ctx.send("No issues found")
+    params = ' '.join(args)
+    results = await searcher.search(params)
+    if results:
+        for result in results:
+            await ctx.send(result.html_url)
+    else:
+        await ctx.send("No issues found")
 
 if __name__ == '__main__':
     """Start the bot"""
