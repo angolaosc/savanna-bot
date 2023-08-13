@@ -1,21 +1,20 @@
-# savanna-bot
+# SavannaBot
 
-A discord bot to find github's good first issue on different repositories.
+A discord bot to find Github's good first issue on different repositories.
+
 ## Get it
 
-You can add the bot to your server by clicking on [<img alt="discord" width="100px" src="assets/discord.png"/>](https://discord.com/oauth2/authorize?client_id=1138189651593674845&permissions=2147551232&scope=bot)
+You can add the bot to your server by clicking on [<img alt="discord" width="100px" src="assets/discord.png"/>](https://discord.com/api/oauth2/authorize?client_id=1138189651593674845&permissions=274877908992&scope=bot)
 
 ## Configuration
 
 - You will need your discord bot token. See how to get yours [here](https://discordpy.readthedocs.io/en/stable/discord.html)
-- A discord channels's id to send the messages. See how to get yours [here](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-)
-- And your github developer token. See how to get yours [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+- And your GitHub developer token. See how to get yours [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
-Now you need to change the `.env-example` to `.env`, with the following content
+Now you need to change the `.env-example` to `.env`, with the following content.
 
 ```env
-  GITHUB_TOKEN=<your github developer access token>
-  DISCORD_CHANNEL_ID=<your discord channel's id>
+  GITHUB_TOKEN=<your GitHub developer access token>
   BOT_TOKEN=<your discord bot token>
 ```
 
@@ -27,13 +26,13 @@ Clone the project
   git clone https://github.com/angolaosc/savanna-bot.git
 ```
 
-Go to the project directory
+Go to the project directory:
 
 ```bash
   cd savanna-bot
 ```
 
-Create your virtual environment
+Create your virtual environment:
 
 ```bash
   virtualenv env
@@ -45,12 +44,12 @@ and
   source venv/bin/activate (in Linux)
 ```
 
-install the dependencies
+Install the dependencies
 
 ```bash
   pip install -r requirements.txt
 ```
-now you are ready to go, run
+Now you are ready to go, run
 
 ```bash
   python3 src/bot.py
