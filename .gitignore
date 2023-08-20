@@ -5,3 +5,5 @@ venv
 /src/models/__pycache__
 .DS_Store
 .idea
+.vscode
+/vscode/settings.json

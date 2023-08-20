@@ -51,37 +51,29 @@ async def search_send(ctx, *args):
         await ctx.send("No issues found")
 
 
-@bot.command(name='/svn help', description="Retrieve information about the available commands and their usage")
 async def show_help(ctx, *args):
     """Display a list of available commands and get information on how to use the Savanna Bot"""
 
     if '/svn help' in args:
         await ctx.send("""
-            Description: An example program to demonstrate how to organize help in the command-line interface.
+            These are common SVN commands used in various situations:
                         
             #Search by language
                         
             With the language qualifier you can search for issues and pull requests within repositories that are written in a certain language.
             
             Qualifier:
-            language:LANGUAGE   Example: language:ruby state:open matches open issues that are in Ruby repositories.
+            /svn language:LANGUAGE   Example: language:ruby state:open matches open issues that are in Ruby repositories.
                         
             #Search by when an issue or pull request was created or last updated
 
             When you search for a date, you can use greater than, less than, and range qualifiers to further filter results. For more information, see "Understanding the search syntax."
 
             Qualifier	
-            created:YYYY-MM-DD	Example: language:c# created:<2011-01-01 state:open matches open issues that were created before 2011 in repositories written in C#.
-            updated:YYYY-MM-DD	Example: weird in:body updated:>=2013-02-01 matches issues with the word "weird" in the body that were updated after February 2013.
-                        
-            """)
-    else:
-        await ctx.send(("""
-        svn: '{}' is not a svn command. See '/svn --help'.
+            /svn created:YYYY-MM-DD	Example: language:c# created:<2011-01-01 state:open matches open issues that were created before 2011 in repositories written in C#.
 
-The most similar command is
-        help
-        """).format(args))
+            /svn updated:YYYY-MM-DD Example: weird in:body updated:>=2013-02-01 matches issues with the word "weird" in the body that were updated after February 2013.   
+            """)
 
 
 if __name__ == '__main__':
