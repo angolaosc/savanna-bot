@@ -47,6 +47,33 @@ async def search_send(ctx, *args):
     else:
         await ctx.send("No issues found")
 
+@bot.command(name='help', description="Retrieve information about the available commands and their usage")
+def show_help():
+    """Display a list of available commands and get information on how to use the Savanna Bot"""
+    logging.info("""
+        Description: An example program to demonstrate how to organize help in the command-line interface.
+
+        Usage:
+        MyProgramCLI --option1 VALUE --option2 VALUE
+        
+        Options:
+        --option1 VALUE      Option to perform Task 1.
+                            Example: MyProgramCLI --option1 value1
+
+        --option2 VALUE      Option to perform Task 2.
+                            Example: MyProgramCLI --option2 value2
+
+        --help               Show this help message and exit.
+        
+        Examples:
+        - Perform Task 1:
+            MyProgramCLI --option1 value1
+
+        - Perform Task 2:
+            MyProgramCLI --option2 value2
+        """)
+    
+
 if __name__ == '__main__':
     """Start the bot"""
    
