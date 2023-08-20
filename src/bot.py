@@ -77,7 +77,7 @@ async def show_help(ctx, *args):
             """)
     else:
         await ctx.send(("""
-        svn: '{}' is not a git command. See '/svn --help'.
+        svn: '{}' is not a svn command. See '/svn --help'.
 
 The most similar command is
         help
