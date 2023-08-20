@@ -9,12 +9,13 @@ root = Path(__name__).parent
 
 # config logging
 logging.basicConfig(level=logging.INFO)
-logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
+logging.basicConfig(format='%(asctime)s - %(message)s',
+                    datefmt='%d-%b-%y %H:%M:%S')
 
 # get config values
-BOT_TOKEN = config("BOT_TOKEN", cast = str)
-CHANNEL_ID = config("DISCORD_CHANNEL_ID", cast = int)
-GITHUB_TOKEN = config("GITHUB_TOKEN", cast = str)
+BOT_TOKEN = config("BOT_TOKEN", cast=str)
+CHANNEL_ID = config("DISCORD_CHANNEL_ID", cast=int)
+GITHUB_TOKEN = config("GITHUB_TOKEN", cast=str)
 
 # create intents for bot
 intents = discord.Intents.default()
@@ -23,8 +24,10 @@ intents.presences = False
 intents.message_content = True
 
 # create bot object
-bot = commands.Bot(command_prefix='/', description='SavannaBot', case_insensitive=True, intents=intents)
+bot = commands.Bot(command_prefix='/', description='SavannaBot',
+                   case_insensitive=True, intents=intents)
 searcher = GithubSearcher(github_token=GITHUB_TOKEN)
+
 
 @bot.event
 async def on_ready():
@@ -37,7 +40,7 @@ async def on_ready():
 async def search_send(ctx, *args):
     """Search for new issues and send to discord"""
     logging.info("Received command from discord")
-    
+
     # automatically parse all the arguments
     params = ' '.join(args)
     results = await searcher.search(params)
@@ -47,34 +50,41 @@ async def search_send(ctx, *args):
     else:
         await ctx.send("No issues found")
 
-@bot.command(name='help', description="Retrieve information about the available commands and their usage")
-def show_help():
+
+@bot.command(name='/svn help', description="Retrieve information about the available commands and their usage")
+async def show_help(ctx, *args):
     """Display a list of available commands and get information on how to use the Savanna Bot"""
-    logging.info("""
-        Description: An example program to demonstrate how to organize help in the command-line interface.
 
-        Usage:
-        MyProgramCLI --option1 VALUE --option2 VALUE
-        
-        Options:
-        --option1 VALUE      Option to perform Task 1.
-                            Example: MyProgramCLI --option1 value1
+    if '/svn help' in args:
+        await ctx.send("""
+            Description: An example program to demonstrate how to organize help in the command-line interface.
+                        
+            #Search by language
+                        
+            With the language qualifier you can search for issues and pull requests within repositories that are written in a certain language.
+            
+            Qualifier:
+            language:LANGUAGE   Example: language:ruby state:open matches open issues that are in Ruby repositories.
+                        
+            #Search by when an issue or pull request was created or last updated
 
-        --option2 VALUE      Option to perform Task 2.
-                            Example: MyProgramCLI --option2 value2
+            When you search for a date, you can use greater than, less than, and range qualifiers to further filter results. For more information, see "Understanding the search syntax."
 
-        --help               Show this help message and exit.
-        
-        Examples:
-        - Perform Task 1:
-            MyProgramCLI --option1 value1
+            Qualifier	
+            created:YYYY-MM-DD	Example: language:c# created:<2011-01-01 state:open matches open issues that were created before 2011 in repositories written in C#.
+            updated:YYYY-MM-DD	Example: weird in:body updated:>=2013-02-01 matches issues with the word "weird" in the body that were updated after February 2013.
+                        
+            """)
+    else:
+        await ctx.send(("""
+        svn: '{}' is not a git command. See '/svn --help'.
 
-        - Perform Task 2:
-            MyProgramCLI --option2 value2
-        """)
-    
+The most similar command is
+        help
+        """).format(args))
+
 
 if __name__ == '__main__':
     """Start the bot"""
-   
+
     bot.run(BOT_TOKEN)
