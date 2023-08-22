@@ -41,6 +41,10 @@ async def search_send(ctx, *args):
     """Search for new issues and send to discord"""
     logging.info("Received command from discord")
 
+    if '--help' == args:
+        show_help()
+        return None
+
     # automatically parse all the arguments
     params = ' '.join(args)
     results = await searcher.search(params)
@@ -53,9 +57,7 @@ async def search_send(ctx, *args):
 
 async def show_help(ctx, *args):
     """Display a list of available commands and get information on how to use the Savanna Bot"""
-
-    if '/svn help' in args:
-        await ctx.send("""
+    await ctx.send("""
             These are common SVN commands used in various situations:
                         
             #Search by language
