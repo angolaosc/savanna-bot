@@ -33,10 +33,16 @@ async def on_ready():
     logging.info("Starting SavannaBot")
 
 
+@bot.command(name='svn-help', description='Ping the bot')
+async def help(ctx):
+    """Ping the bot"""
+    logging.info("Received command from discord")
+    await ctx.send('This Help Message')
+
 @bot.command(name='svn', description='Find any github issues with the given search term')
 async def search_send(ctx, *args):
     """Search for new issues and send to discord"""
-    logging.info("Received command from discord")
+    logging.info("Received help command from discord")
     
     # automatically parse all the arguments
     params = ' '.join(args)
