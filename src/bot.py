@@ -9,12 +9,13 @@ root = Path(__name__).parent
 
 # config logging
 logging.basicConfig(level=logging.INFO)
-logging.basicConfig(format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S')
+logging.basicConfig(format='%(asctime)s - %(message)s',
+                    datefmt='%d-%b-%y %H:%M:%S')
 
 # get config values
-BOT_TOKEN = config("BOT_TOKEN", cast = str)
-CHANNEL_ID = config("DISCORD_CHANNEL_ID", cast = int)
-GITHUB_TOKEN = config("GITHUB_TOKEN", cast = str)
+BOT_TOKEN = config("BOT_TOKEN", cast=str)
+CHANNEL_ID = config("DISCORD_CHANNEL_ID", cast=int)
+GITHUB_TOKEN = config("GITHUB_TOKEN", cast=str)
 
 # create intents for bot
 intents = discord.Intents.default()
@@ -23,8 +24,15 @@ intents.presences = False
 intents.message_content = True
 
 # create bot object
-bot = commands.Bot(command_prefix='/', description='SavannaBot', case_insensitive=True, intents=intents)
+bot = commands.Bot(command_prefix='/', description='SavannaBot',
+                   case_insensitive=True, intents=intents)
 searcher = GithubSearcher(github_token=GITHUB_TOKEN)
+
+translations = {
+    "linguagem": "language"
+    "dono"
+}
+
 
 @bot.event
 async def on_ready():
@@ -37,9 +45,17 @@ async def on_ready():
 async def search_send(ctx, *args):
     """Search for new issues and send to discord"""
     logging.info("Received command from discord")
-    
+    list_args = list(args)
+
+    for arg in list_args:
+        s = arg.split(":")
+        if s[0] in translations.keys():
+            new_query = f"{translations[s[0]]}:{s[1]}"
+            list_args.remove(arg)
+            list_args.append(new_query)
+
     # automatically parse all the arguments
-    params = ' '.join(args)
+    params = ' '.join(list_args)
     results = await searcher.search(params)
     if results:
         for result in results:
@@ -49,5 +65,5 @@ async def search_send(ctx, *args):
 
 if __name__ == '__main__':
     """Start the bot"""
-   
+
     bot.run(BOT_TOKEN)
