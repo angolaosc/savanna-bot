@@ -1,4 +1,5 @@
 import logging
+from typing import Tuple
 import discord
 from pathlib import Path
 from decouple import config
@@ -29,8 +30,10 @@ bot = commands.Bot(command_prefix='/', description='SavannaBot',
 searcher = GithubSearcher(github_token=GITHUB_TOKEN)
 
 translations = {
-    "linguagem": "language"
-    "dono"
+    "linguagem": "language",
+    "dono": "owner",
+    "actualização": "updated",
+    "criado": "created",
 }
 
 
@@ -45,23 +48,29 @@ async def on_ready():
 async def search_send(ctx, *args):
     """Search for new issues and send to discord"""
     logging.info("Received command from discord")
-    list_args = list(args)
 
-    for arg in list_args:
-        s = arg.split(":")
-        if s[0] in translations.keys():
-            new_query = f"{translations[s[0]]}:{s[1]}"
-            list_args.remove(arg)
-            list_args.append(new_query)
+    queries = translate_queries(args)
 
     # automatically parse all the arguments
-    params = ' '.join(list_args)
+    params = ' '.join(queries)
     results = await searcher.search(params)
     if results:
         for result in results:
             await ctx.send(result.html_url)
     else:
         await ctx.send("No issues found")
+
+
+def translate_queries(args: Tuple[str]):
+    queries = list(args)
+    for _ in queries:
+        query = _.split(":")
+        if query[0] in translations.keys():
+            new_query = f"{translations[query[0]]}:{query[1]}"
+            queries.remove(_)
+            queries.append(new_query)
+    return queries
+
 
 if __name__ == '__main__':
     """Start the bot"""
