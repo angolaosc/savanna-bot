@@ -29,7 +29,7 @@ bot = commands.Bot(command_prefix='/', description='SavannaBot',
                    case_insensitive=True, intents=intents)
 searcher = GithubSearcher(github_token=GITHUB_TOKEN)
 
-translations = {
+locales = {
     "linguagem": "language",
     "dono": "owner",
     "actualização": "updated",
@@ -64,8 +64,8 @@ def translate_queries(args: Tuple[str]):
     queries = list(args)
     for _ in queries:
         query = _.split(":")
-        if query[0] in translations.keys():
-            new_query = f"{translations[query[0]]}:{query[1]}"
+        if query[0] in locales.keys():
+            new_query = f"{locales[query[0]]}:{query[1]}"
             queries.remove(_)
             queries.append(new_query)
     return queries
