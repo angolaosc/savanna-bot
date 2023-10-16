@@ -36,7 +36,6 @@ translations = {
     "criado": "created",
 }
 
-
 @bot.event
 async def on_ready():
     """Log when bot is ready"""
