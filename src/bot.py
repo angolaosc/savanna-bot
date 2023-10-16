@@ -62,11 +62,11 @@ async def search_send(ctx, *args):
 
 def translate_queries(args: Tuple[str]):
     queries = list(args)
-    for _ in queries:
-        query = _.split(":")
+    for q in queries:
+        query = q.split(":")
         if query[0] in locales.keys():
             new_query = f"{locales[query[0]]}:{query[1]}"
-            queries.remove(_)
+            queries.remove(q)
             queries.append(new_query)
     return queries
 
