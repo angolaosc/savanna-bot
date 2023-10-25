@@ -29,12 +29,15 @@ bot = commands.Bot(command_prefix='/', description='SavannaBot',
                    case_insensitive=True, intents=intents)
 searcher = GithubSearcher(github_token=GITHUB_TOKEN)
 
+bot.remove_command('help')
+
 locales = {
     "linguagem": "language",
     "dono": "owner",
     "actualização": "updated",
     "criado": "created",
 }
+
 
 @bot.event
 async def on_ready():
@@ -49,6 +52,18 @@ async def search_send(ctx, *args):
     logging.info("Received command from discord")
 
     queries = translate_queries(args)
+
+    if "help" in queries or "?" in queries:
+        embed = discord.Embed(
+            title="SavannaBot", description="Search for github issues from discord", color=0x00ff00)
+        embed.add_field(name="How to use",
+                        value="To use this bot, type `/svn` followed by the search terms. For example: `/svn language:python owner:django`", inline=False)
+        embed.add_field(name="Available search terms",
+                        value="`language`, `owner`, `updated`, `created`", inline=False)
+        embed.add_field(name="Available commands",
+                        value="`/svn help` or `/svn ?`", inline=False)
+        await ctx.send(embed=embed)
+        return
 
     # automatically parse all the arguments
     params = ' '.join(queries)
