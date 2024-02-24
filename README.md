@@ -1,5 +1,8 @@
 # SavannaBot
 
+[Leia em Português](https://github.com/elisioMassaqui/savanna-bot-robot/blob/main/Readme%20em%20portugues.md)
+
+
 A discord bot to find Github's good first issue on different repositories.
 
 ## Get it
